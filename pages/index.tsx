@@ -23,18 +23,18 @@ const SERIAL_STARTS = [
 ]
 
 const DIGIT_SETS = [
-  { d2:{shown:"2 – 4",        answer:"42",    hint:"4 first, then 2"},
-    d3:{shown:"5 – 7 – 3",    answer:"375",   hint:"3, then 7, then 5"},
-    d4:{shown:"1 – 2 – 4 – 8",answer:"8421",  hint:"8, 4, 2, 1"},
-    d5:{shown:"3 – 9 – 4 – 2 – 7",answer:"72493",hint:"7, 2, 4, 9, 3"} },
-  { d2:{shown:"7 – 3",        answer:"37",    hint:"3 first, then 7"},
-    d3:{shown:"4 – 9 – 2",    answer:"294",   hint:"2, then 9, then 4"},
-    d4:{shown:"3 – 6 – 1 – 8",answer:"8163",  hint:"8, 1, 6, 3"},
-    d5:{shown:"6 – 1 – 8 – 3 – 5",answer:"53816",hint:"5, 3, 8, 1, 6"} },
-  { d2:{shown:"9 – 1",        answer:"19",    hint:"1 first, then 9"},
-    d3:{shown:"6 – 2 – 8",    answer:"826",   hint:"8, then 2, then 6"},
-    d4:{shown:"5 – 1 – 7 – 4",answer:"4715",  hint:"4, 7, 1, 5"},
-    d5:{shown:"2 – 8 – 5 – 1 – 9",answer:"91582",hint:"9, 1, 5, 8, 2"} },
+  { d2:{shown:"2 – 4",        answer:"42"},
+    d3:{shown:"5 – 7 – 3",    answer:"375"},
+    d4:{shown:"1 – 2 – 4 – 8",answer:"8421"},
+    d5:{shown:"3 – 9 – 4 – 2 – 7",answer:"72493"} },
+  { d2:{shown:"7 – 3",        answer:"37"},
+    d3:{shown:"4 – 9 – 2",    answer:"294"},
+    d4:{shown:"3 – 6 – 1 – 8",answer:"8163"},
+    d5:{shown:"6 – 1 – 8 – 3 – 5",answer:"53816"} },
+  { d2:{shown:"9 – 1",        answer:"19"},
+    d3:{shown:"6 – 2 – 8",    answer:"826"},
+    d4:{shown:"5 – 1 – 7 – 4",answer:"4715"},
+    d5:{shown:"2 – 8 – 5 – 1 – 9",answer:"91582"} },
 ]
 
 const STORIES = [
@@ -59,9 +59,9 @@ const STORIES = [
 ]
 
 const LETTER_SETS = [
-  { letter:"F", example:"fish, flower, fast, funny…" },
-  { letter:"S", example:"sun, sleep, slow, start…" },
-  { letter:"A", example:"apple, arm, always, angry…" },
+  { letter:"F" },
+  { letter:"S" },
+  { letter:"A" },
 ]
 
 // ═══ BUILD STEPS — called fresh each test session ══════════════════════════
@@ -80,13 +80,11 @@ function buildSteps() {
 
     // PROSPECTIVE MEMORY INSTRUCTION — planted at the start, tested at the end
     {id:"prospective_plant",type:"prospective_plant",section:"Memory",
-      prompt:"Important: Please remember this instruction for later.",
-      subtext:"At the very end of this test, you will be asked: 'Do you remember what we asked you to do?' — The answer is: tell us your city again. Remember that."},
+      prompt:"Important: Please remember this instruction for later."},
 
     // MEMORY — word plant
     {id:"memory_plant",type:"memory_display",section:"Memory",
       prompt:"Look at these 3 words carefully.",
-      subtext:"Say each word out loud 2–3 times. You will need to remember them at the very end.",
       words: wordSet.words},
 
     // ORIENTATION
@@ -97,32 +95,31 @@ function buildSteps() {
     {id:"orient_place",type:"typed",section:"Orientation",prompt:"What city or town are you in right now?", placeholder:"Type the city name…"},
 
     // SERIAL 7s & DIGIT SPAN BACKWARD — alternating between subtraction and reverse number tests
-    {id:"s7_1",type:"typed",section:"Attention",prompt:`Start with ${serial.start} and take away ${serial.step}. What do you get?`, placeholder:"Your answer…",hint:`${serial.start} minus ${serial.step} = ?`},
+    {id:"s7_1",type:"typed",section:"Attention",prompt:`Start with ${serial.start} and take away ${serial.step}. What do you get?`, placeholder:"Your answer…"},
     {id:"dsb_2",type:"digit_span",section:"Attention",
       prompt:"I will show you some numbers. Type them in REVERSE order — backwards.",
-      subtext:"Example: if you see  3 – 1  →  you type  1 3",
-      digits:digits.d2.shown, answer:digits.d2.answer, hint:digits.d2.hint},
-    {id:"s7_2",type:"typed",section:"Attention",prompt:`Now take away ${serial.step} from that number.`,                              placeholder:"Your answer…",hint:`Your last answer minus ${serial.step}`},
+      digits:digits.d2.shown, answer:digits.d2.answer},
+    {id:"s7_2",type:"typed",section:"Attention",prompt:`Now take away ${serial.step} from that number.`,                              placeholder:"Your answer…"},
     {id:"dsb_3",type:"digit_span",section:"Attention",
       prompt:"Good! Now try 3 numbers in reverse order.",
-      digits:digits.d3.shown, answer:digits.d3.answer, hint:digits.d3.hint},
-    {id:"s7_3",type:"typed",section:"Attention",prompt:`Take away ${serial.step} again. What is the result?`,                         placeholder:"Your answer…",hint:`Your last answer minus ${serial.step}`},
+      digits:digits.d3.shown, answer:digits.d3.answer},
+    {id:"s7_3",type:"typed",section:"Attention",prompt:`Take away ${serial.step} again. What is the result?`,                         placeholder:"Your answer…"},
     {id:"dsb_4",type:"digit_span",section:"Attention",
       prompt:"Excellent! Now 4 numbers in reverse order.",
-      digits:digits.d4.shown, answer:digits.d4.answer, hint:digits.d4.hint},
-    {id:"s7_4",type:"typed",section:"Attention",prompt:`Once more — take away ${serial.step}.`,                                       placeholder:"Your answer…",hint:`Your last answer minus ${serial.step}`},
+      digits:digits.d4.shown, answer:digits.d4.answer},
+    {id:"s7_4",type:"typed",section:"Attention",prompt:`Once more — take away ${serial.step}.`,                                       placeholder:"Your answer…"},
     {id:"dsb_5",type:"digit_span",section:"Attention",
       prompt:"Last one — 5 numbers in reverse order. Take your time.",
-      digits:digits.d5.shown, answer:digits.d5.answer, hint:digits.d5.hint},
-    {id:"s7_5",type:"typed",section:"Attention",prompt:`Last one — take away ${serial.step} one final time.`,                         placeholder:"Your answer…",hint:`Your last answer minus ${serial.step}`},
+      digits:digits.d5.shown, answer:digits.d5.answer},
+    {id:"s7_5",type:"typed",section:"Attention",prompt:`Last one — take away ${serial.step} one final time.`,                         placeholder:"Your answer…"},
 
     // NAMING — 6 objects: easy → medium → hard
-    {id:"name_pencil",    type:"image_name",section:"Language",prompt:"What is this object called?",emoji:"✏️",hint:"You hold it and use it to write on paper"},
-    {id:"name_watch",     type:"image_name",section:"Language",prompt:"What is this object called?",emoji:"⌚",hint:"You wear it on your wrist — it tells you the time"},
-    {id:"name_key",       type:"image_name",section:"Language",prompt:"What is this object called?",emoji:"🔑",hint:"You use it to open a lock or a door"},
-    {id:"name_scissors",  type:"image_name",section:"Language",prompt:"What is this object called?",emoji:"✂️",hint:"You use it to cut paper or cloth — it has two blades"},
-    {id:"name_thermometer",type:"image_name",section:"Language",prompt:"What is this object called?",emoji:"🌡️",hint:"This tool measures body temperature — doctors use it when you have a fever"},
-    {id:"name_compass",   type:"image_name",section:"Language",prompt:"What is this object called?",emoji:"🧭",hint:"This tool helps you find directions like north, south, east and west"},
+    {id:"name_pencil",    type:"image_name",section:"Language",prompt:"What is this object called?",emoji:"✏️"},
+    {id:"name_watch",     type:"image_name",section:"Language",prompt:"What is this object called?",emoji:"⌚"},
+    {id:"name_key",       type:"image_name",section:"Language",prompt:"What is this object called?",emoji:"🔑"},
+    {id:"name_scissors",  type:"image_name",section:"Language",prompt:"What is this object called?",emoji:"✂️"},
+    {id:"name_thermometer",type:"image_name",section:"Language",prompt:"What is this object called?",emoji:"🌡️"},
+    {id:"name_compass",   type:"image_name",section:"Language",prompt:"What is this object called?",emoji:"🧭"},
 
     // LANGUAGE — command, writing
     {id:"command",type:"command",section:"Language",
@@ -130,25 +127,20 @@ function buildSteps() {
       instruction:"Step 1: Close your eyes\nStep 2: Count to 3 silently in your head\nStep 3: Open your eyes and tap the button below"},
     {id:"writing",type:"textarea",section:"Language",
       prompt:"Write one complete sentence about anything.",
-      subtext:"About your day, the weather, your family — anything you like.",
       placeholder:"Write your sentence here…"},
 
     // FLUENCY
     {id:"animal_fluency",type:"fluency_animals",section:"Language",
-      prompt:"Name as many animals as you can in 60 seconds.",
-      subtext:"Any animal from anywhere — dogs, birds, fish, wild animals, anything. Type them as fast as you can."},
+      prompt:"Name as many animals as you can in 60 seconds."},
     {id:"letter_fluency",type:"fluency_letter",section:"Language",
       prompt:`Name as many words starting with the letter ${letterSet.letter} as you can — in 60 seconds.`,
-      subtext:`Any word that starts with ${letterSet.letter}. Not names of people or places. For example: ${letterSet.example}`,
       letter:letterSet.letter},
 
     // VISUOSPATIAL
     {id:"clock_draw",   type:"clock_draw",   section:"Visuospatial",
-      prompt:"Draw a clock showing the time: 10 minutes past 11.",
-      subtext:"Draw a circle. Write all 12 numbers inside it. Draw two hands pointing to 11:10."},
+      prompt:"Draw a clock showing the time: 10 minutes past 11."},
     {id:"pentagon_draw",type:"pentagon_draw",section:"Visuospatial",
-      prompt:"Copy this shape as carefully as you can.",
-      subtext:"Look at the two five-sided shapes overlapping in the corner. Copy them below."},
+      prompt:"Copy this shape as carefully as you can."},
 
     // STORY
     {id:"story_read",type:"story_read",section:"Memory",
@@ -163,19 +155,16 @@ function buildSteps() {
     // INTRUSION CHECK
     {id:"intrusion_check",type:"choice",section:"Memory",
       prompt:story.intrusion_q,
-      subtext:"Think carefully. Re-read the story in your mind.",
       options:["No, the story did not mention money","Yes, the story mentioned money"]},
 
     // DISTRACTOR QUESTION
     {id:"distractor_q",type:"choice",section:"Attention",
       prompt:"Quick question before we continue — which of these is a planet in our solar system?",
-      subtext:"This is a short break question. Just pick the right answer.",
       options:["Mars","Pluto (dwarf planet)","The Moon","The Sun"]},
 
     // PICTURE DESCRIPTION
     {id:"picture_describe",type:"picture_describe",section:"Language",
-      prompt:"Look at this kitchen picture. Describe everything you see.",
-      subtext:"Tell us about every person, every action, every object. No wrong answers."},
+      prompt:"Look at this kitchen picture. Describe everything you see."},
 
     // SPEECH
     {id:"speech_record",type:"speech_record",section:"Speech",
@@ -185,7 +174,6 @@ function buildSteps() {
     // DELAYED WORD RECALL
     {id:"memory_recall",type:"recall",section:"Memory",
       prompt:"Earlier we showed you 3 words to remember. What were they?",
-      subtext:"Type as many as you can remember. Do not worry if you forgot some.",
       placeholder:"e.g. Apple, Table… (separate with commas)"},
 
     // CUED RECALL
@@ -364,7 +352,6 @@ function TypedInput({step,onNext}:any) {
   const go=()=>{if(val.trim())onNext(val.trim())}
   return (
     <div>
-      {step.hint&&<div style={{background:"rgba(52,211,153,0.05)",border:"1px solid rgba(52,211,153,0.18)",borderRadius:10,padding:"10px 14px",marginBottom:14}}><p style={{color:"#6ee7b7",fontSize:13}}>💡 {step.hint}</p></div>}
       <input ref={ref} className="inp" type={step.type==="number"?"number":"text"}
         placeholder={step.placeholder} value={val}
         onChange={e=>setVal(e.target.value)} onKeyDown={e=>{if(e.key==="Enter")go()}} style={{fontSize:20}}/>
@@ -376,7 +363,6 @@ function TypedInput({step,onNext}:any) {
 function SelectStep({step,onNext}:any) {
   return (
     <div style={{display:"flex",flexDirection:"column",gap:12}}>
-      {step.subtext&&<p style={{color:"#9ca3af",fontSize:14,lineHeight:1.7,marginBottom:4}}>{step.subtext}</p>}
       {step.options.map((opt:string,i:number)=>(
         <button key={i} className="choice-btn" style={{fontSize:16,padding:"16px 18px"}} onClick={()=>onNext(opt)}>
           <span style={{width:32,height:32,borderRadius:9,border:"1px solid rgba(255,255,255,0.15)",display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"monospace",fontSize:13,color:"rgba(255,255,255,0.4)",flexShrink:0,fontWeight:600}}>{String.fromCharCode(65+i)}</span>
@@ -429,7 +415,6 @@ function TextareaStep({step,onNext}:any) {
   useEffect(()=>{setVal("");setTimeout(()=>ref.current?.focus(),180)},[step.id])
   return (
     <div>
-      {step.subtext&&<p style={{color:"#9ca3af",fontSize:14,marginBottom:14,lineHeight:1.75}}>{step.subtext}</p>}
       <textarea ref={ref} className="inp" rows={4} placeholder={step.placeholder} value={val}
         onChange={e=>setVal(e.target.value)} style={{resize:"none",minHeight:120,fontSize:16}}/>
       <button className="btn-green" style={{marginTop:14,width:"100%",fontSize:17,padding:"15px"}} onClick={()=>{if(val.trim())onNext(val.trim())}}>Next →</button>
@@ -445,7 +430,6 @@ function DigitSpanStep({step,onNext}:any) {
   const digitCount = step.digits?.split("–").length || 3
   return (
     <div>
-      {step.subtext&&<p style={{color:"#9ca3af",fontSize:14,marginBottom:18,lineHeight:1.75}}>{step.subtext}</p>}
       <div style={{background:"rgba(165,180,252,0.08)",border:"1px solid rgba(165,180,252,0.3)",borderRadius:16,padding:"26px",textAlign:"center",marginBottom:22}}>
         <p style={{color:"#a5b4fc",fontSize:11,fontFamily:"monospace",letterSpacing:"0.1em",marginBottom:14}}>
           {digitCount>=5?"⚠️ CHALLENGE: 5 NUMBERS TO REVERSE:":"NUMBERS TO REVERSE:"}
@@ -453,7 +437,6 @@ function DigitSpanStep({step,onNext}:any) {
         <p style={{fontSize:36,fontWeight:700,color:"#f9fafb",letterSpacing:"0.15em",marginBottom:12}}>{step.digits}</p>
         <p style={{color:"#6b7280",fontSize:13}}>Type them backwards — last number first</p>
       </div>
-      {step.hint&&<div style={{background:"rgba(52,211,153,0.05)",border:"1px solid rgba(52,211,153,0.18)",borderRadius:10,padding:"10px 14px",marginBottom:14}}><p style={{color:"#6ee7b7",fontSize:13}}>💡 {step.hint}</p></div>}
       <input ref={ref} className="inp" type="text" placeholder="Type the numbers in reverse order…" value={val}
         onChange={e=>setVal(e.target.value.replace(/[^0-9\s]/g,""))} onKeyDown={e=>{if(e.key==="Enter")go()}} style={{fontSize:24,textAlign:"center",letterSpacing:"0.15em"}}/>
       <button className="btn-green" style={{marginTop:14,width:"100%",fontSize:17,padding:"15px"}} onClick={go}>Next →</button>
@@ -1011,7 +994,6 @@ function RecallStep({step,onNext}:any) {
   useEffect(()=>{setVal("");setTimeout(()=>ref.current?.focus(),180)},[step.id])
   return(
     <div>
-      {step.subtext&&<p style={{color:"#9ca3af",fontSize:14,marginBottom:14,lineHeight:1.75}}>{step.subtext}</p>}
       <div style={{background:"rgba(99,102,241,0.07)",border:"1px solid rgba(99,102,241,0.2)",borderRadius:12,padding:"12px 16px",marginBottom:16}}>
         <p style={{color:"#a5b4fc",fontSize:13}}>💡 They were 3 simple everyday objects. Type what comes to mind.</p>
       </div>
