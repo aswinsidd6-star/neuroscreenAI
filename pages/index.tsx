@@ -62,6 +62,16 @@ const LETTER_SETS = [
   { letter:"F" },
   { letter:"S" },
   { letter:"A" },
+  { letter:"P" },
+  { letter:"B" },
+]
+
+const PICTURE_SETS = [
+  { name:"Kitchen - Cookie Theft", desc:"Woman at sink washing dishes, water overflowing on floor, boy on stool reaching for cookies in jar, girl watching" },
+  { name:"Garden Play", desc:"Children playing in garden with toys, grandmother watering plants, flowers blooming, bench visible" },
+  { name:"Beach Scene", desc:"Family enjoying beach day, children building sandcastles, person fishing in water, beach umbrella and bucket" },
+  { name:"Classroom Learning", desc:"Teacher writing on board, students seated at desks attentive, posters on walls, books and materials on desk" },
+  { name:"Birthday Celebration", desc:"Children gathered around party table with cake, gifts being opened, colorful balloons and streamers, adult serving" },
 ]
 
 // ═══ BUILD STEPS — called fresh each test session ══════════════════════════
@@ -88,10 +98,10 @@ function buildSteps() {
       words: wordSet.words},
 
     // ORIENTATION
-    {id:"orient_year", type:"typed",section:"Orientation",prompt:"What year is it today?",                  placeholder:"e.g. 2026"},
-    {id:"orient_month",type:"typed",section:"Orientation",prompt:"What month is it right now?",             placeholder:"e.g. March"},
-    {id:"orient_day",  type:"typed",section:"Orientation",prompt:"What day of the week is today?",          placeholder:"e.g. Monday"},
-    {id:"orient_date", type:"typed",section:"Orientation",prompt:"What is today's date — just the number?", placeholder:"e.g. 9"},
+    {id:"orient_year", type:"typed",section:"Orientation",prompt:"What year is it today?",                  placeholder:""},
+    {id:"orient_month",type:"typed",section:"Orientation",prompt:"What month is it right now?",             placeholder:""},
+    {id:"orient_day",  type:"typed",section:"Orientation",prompt:"What day of the week is today?",          placeholder:""},
+    {id:"orient_date", type:"typed",section:"Orientation",prompt:"What is today's date — just the number?", placeholder:""},
     {id:"orient_place",type:"typed",section:"Orientation",prompt:"What city or town are you in right now?", placeholder:"Type the city name…"},
 
     // SERIAL 7s & DIGIT SPAN BACKWARD — alternating between subtraction and reverse number tests
